@@ -157,14 +157,11 @@
                 },
                 "CidrBlock": "10.66.0.0/22",
                 "AvailabilityZone": {
-                    "Fn::Join": [
-                        "",
-                        [
-                            {
-                                "Ref": "AWS::Region"
-                            },
-                            "a"
-                        ]
+                    "Fn::Select": [
+                        "0",
+                        {
+                            "Fn::GetAZs": ""
+                        }
                     ]
                 },
                 "Tags": [
@@ -189,14 +186,11 @@
                 },
                 "CidrBlock": "10.66.4.0/22",
                 "AvailabilityZone": {
-                    "Fn::Join": [
-                        "",
-                        [
-                            {
-                                "Ref": "AWS::Region"
-                            },
-                            "b"
-                        ]
+                    "Fn::Select": [
+                        "1",
+                        {
+                            "Fn::GetAZs": ""
+                        }
                     ]
                 },
                 "Tags": [
@@ -221,14 +215,11 @@
                 },
                 "CidrBlock": "10.66.8.0/22",
                 "AvailabilityZone": {
-                    "Fn::Join": [
-                        "",
-                        [
-                            {
-                                "Ref": "AWS::Region"
-                            },
-                            "c"
-                        ]
+                    "Fn::Select": [
+                        "2",
+                        {
+                            "Fn::GetAZs": ""
+                        }
                     ]
                 },
                 "Tags": [
@@ -253,14 +244,11 @@
                 },
                 "CidrBlock": "10.66.12.0/22",
                 "AvailabilityZone": {
-                    "Fn::Join": [
-                        "",
-                        [
-                            {
-                                "Ref": "AWS::Region"
-                            },
-                            "a"
-                        ]
+                    "Fn::Select": [
+                        "0",
+                        {
+                            "Fn::GetAZs": ""
+                        }
                     ]
                 },
                 "Tags": [
@@ -285,14 +273,11 @@
                 },
                 "CidrBlock": "10.66.16.0/22",
                 "AvailabilityZone": {
-                    "Fn::Join": [
-                        "",
-                        [
-                            {
-                                "Ref": "AWS::Region"
-                            },
-                            "b"
-                        ]
+                    "Fn::Select": [
+                        "1",
+                        {
+                            "Fn::GetAZs": ""
+                        }
                     ]
                 },
                 "Tags": [
@@ -317,14 +302,11 @@
                 },
                 "CidrBlock": "10.66.20.0/22",
                 "AvailabilityZone": {
-                    "Fn::Join": [
-                        "",
-                        [
-                            {
-                                "Ref": "AWS::Region"
-                            },
-                            "c"
-                        ]
+                    "Fn::Select": [
+                        "2",
+                        {
+                            "Fn::GetAZs": ""
+                        }
                     ]
                 },
                 "Tags": [
