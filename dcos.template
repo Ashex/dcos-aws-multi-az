@@ -8,10 +8,9 @@
     },
     "Parameters": {
         "Ami": {
-            "Type": "AWS::EC2::Image::Id",
-            "Description": "AMI id (CoreOS)",
-            "AllowedPattern": "\\S+",
-            "Default": "ami-55d20b26"
+            "Type": "String",
+            "Description": "Optional: Custom CoreOS AMI id",
+            "Default": "default"
         },
         "SshKeyPair": {
             "Type": "AWS::EC2::KeyPair::KeyName",
@@ -62,6 +61,27 @@
                 },
                 "us-east-1"
             ]
+        },
+        "CustomCoreOSAMI": {
+            "Fn::Not": [{
+                "Fn::Equals" : [
+                    {"Ref": "Ami"},
+                    "default"
+                    ]
+                }]
+        }
+    },
+    "Mappings": {
+        "RegionMap": {
+            "eu-central-1": {
+                "AMI": "ami-3ae31555"
+            },
+            "eu-west-1": {
+                "AMI": "ami-b7cba3c4"
+            },
+            "us-east-1": {
+                "AMI": "ami-6d138f7a"
+            }
         }
     },
     "Resources": {
@@ -1287,7 +1307,19 @@
             "Properties": {
                 "AssociatePublicIpAddress": "false",
                 "ImageId": {
-                    "Ref": "Ami"
+                    "Fn::If": [
+                        "CustomCoreOSAMI",
+                        {"Ref": "Ami"},
+                        {
+                        "Fn::FindInMap": [
+                            "RegionMap",
+                            {
+                                "Ref": "AWS::Region"
+                            },
+                            "AMI"
+                            ]
+                        }
+                    ]
                 },
                 "IamInstanceProfile": {
                     "Ref": "SlaveInstanceProfile"
@@ -1600,7 +1632,19 @@
             "Properties": {
                 "AssociatePublicIpAddress": "true",
                 "ImageId": {
-                    "Ref": "Ami"
+                    "Fn::If": [
+                        "CustomCoreOSAMI",
+                        {"Ref": "Ami"},
+                        {
+                        "Fn::FindInMap": [
+                            "RegionMap",
+                            {
+                                "Ref": "AWS::Region"
+                            },
+                            "AMI"
+                            ]
+                        }
+                    ]
                 },
                 "IamInstanceProfile": {
                     "Ref": "MasterInstanceProfile"
@@ -1919,7 +1963,19 @@
             "Properties": {
                 "AssociatePublicIpAddress": "true",
                 "ImageId": {
-                    "Ref": "Ami"
+                    "Fn::If": [
+                        "CustomCoreOSAMI",
+                        {"Ref": "Ami"},
+                        {
+                        "Fn::FindInMap": [
+                            "RegionMap",
+                            {
+                                "Ref": "AWS::Region"
+                            },
+                            "AMI"
+                            ]
+                        }
+                    ]
                 },
                 "IamInstanceProfile": {
                     "Ref": "SlaveInstanceProfile"
